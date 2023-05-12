@@ -9,14 +9,58 @@ import {
   StyleSheet,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
 import { PermissionStatus } from 'expo-image-picker';
-import { wp,hp } from '../Viewport';
-export default function PickImage() {
+import { wp, hp } from '../Viewport';
+export default function PickImage(props) {
   const [galleryPermissionInfo, requestGalleryPermission] =
     ImagePicker.useMediaLibraryPermissions();
   const [cameraPermissionInfo, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
   const [image, setImage] = useState(null);
+  const [dataLoadedImage, setDataLoadedImage] = useState(null);
+  // const [isVisible, setIsVisible] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState('');
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  const uploadImageHandler = async () => {
+    console.log('Sending Image to Server');
+    console.log(image);
+    try {
+      setIsLoading(true);
+      let data = new FormData();
+      data.append('file', {
+        uri: image.uri,
+        name: `photo.jpg`,
+        type: image.type,
+      });
+      // data.append('Content-Type','image/jpg')
+      const url = 'http://192.168.0.3:5000/segmentImage';
+      let res = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(res);
+      setData(res.data.res);
+      setImage(null);
+      // const bckend_data = await axios.post(url, data, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
+      // console.log(bckend_data);
+      // setData(bckend_data.data.result);
+      setDataLoaded(true);
+      setIsLoading(false);
+      // console.log(bckend_data.data);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
 
   const verifyCameraPermission = async () => {
     if (cameraPermissionInfo.status === PermissionStatus.UNDETERMINED) {
@@ -57,7 +101,7 @@ export default function PickImage() {
       quality: 1,
     });
     if (!image.canceled) {
-      setImage(image.assets[0].uri);
+      setImage(image.assets[0]);
     }
   };
   const cameraPressHandler = async () => {
@@ -71,16 +115,17 @@ export default function PickImage() {
       quality: 1,
     });
     if (!image.canceled) {
-      setImage(image.assets[0].uri);
+      setImage(image.assets[0]);
     }
   };
 
-  let imagePreview = <Text>No image taken yet</Text>;
+  // let imagePreview = <Text>No image taken yet</Text>;
 
-  if (image) {
-    imagePreview = <Image source={{ uri: image }} style={styles.imageStyle} />;
-  }
-
+  // if (image) {
+  //   imagePreview = <Image source={{ uri: image }} style={styles.imageStyle} />;
+  // }
+  let imagePath =
+    dataLoaded && !isLoading ? require(`../../assets/output/photo.jpg`) : '';
   return (
     <View style={styles.container}>
       <Pressable onPress={galleryPressHandler} style={styles.btn}>
@@ -89,34 +134,41 @@ export default function PickImage() {
       <Pressable onPress={cameraPressHandler} style={styles.btn}>
         <Text style={styles.btnText}>Use Camera</Text>
       </Pressable>
-
       {image && (
-        <Image source={{ uri: image }} style={{ height: 40, width: 40 }} />
+        <Pressable onPress={uploadImageHandler} style={styles.btn}>
+          <Text style={styles.btnText}>Upload Image</Text>
+        </Pressable>
+      )}
+      {image && <Image source={{ uri: image.uri }} style={styles.imageStyle} />}
+      {dataLoaded && !isLoading && (
+        <Image source={imagePath} style={styles.imageStyle} />
       )}
     </View>
   );
 }
 const styles = StyleSheet.create({
-  imageStyle: {},
+  imageStyle: {
+    height: 100,
+    width: 100,
+  },
   container: {
     marginTop: 100,
     margin: 10,
-    flexDirection:'column',
-    justifyContent:'center',
-  
-    alignItems:'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    alignItems: 'center',
   },
   btn: {
     borderWidth: 2,
-    flexDirection:'row',
-    justifyContent:'center',
-    marginVertical:20,
-    padding:10,
-    width:wp(80),
-    margin:'auto',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 20,
+    padding: 10,
+    width: wp(80),
+    margin: 'auto',
   },
-  btnText:{
-    fontSize:20,
-
-  }
+  btnText: {
+    fontSize: 20,
+  },
 });

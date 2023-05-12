@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import firebaseDetails from './firebase.json';
+import { initializeApp } from 'firebase/app';
 import {
   View,
   Text,
@@ -19,6 +21,19 @@ import Welcome from './Components/Welcome';
 import MainPage from './Components/MainPage/MainPage';
 import TrackCal from './Components/MainPage/TrackCal';
 const App = () => {
+  // Firebase config
+  const { details } = firebaseDetails;
+  const firebaseConfig = {
+    apiKey: details.apiKey,
+    authDomain: details.authDomain,
+    projectId: details.projectId,
+    storageBucket: details.storageBucket,
+    messagingSenderId: details.messagingSenderId,
+    appId: details.appId,
+    measurementId: details.measurementId,
+  };
+  initializeApp(firebaseConfig);
+
   const [login, setLogin] = useState(false);
   const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
@@ -66,8 +81,8 @@ const App = () => {
             {/* {!login && <HomePage onLogin={onLogin} />}
             {login && isFirstTimeLogin && (
               <CollectInfo onSave={saveDataHandler} />
-            )} */}
-            {/* {showWelcome && <Welcome name={data?.name} />} */}
+            )}
+            {showWelcome && <Welcome name={data?.name} />} */}
           </View>
           <NavigationContainer>
             <Stack.Navigator
