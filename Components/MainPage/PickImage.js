@@ -17,50 +17,50 @@ export default function PickImage(props) {
     ImagePicker.useMediaLibraryPermissions();
   const [cameraPermissionInfo, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
-  const [image, setImage] = useState(null);
-  const [dataLoadedImage, setDataLoadedImage] = useState(null);
-  // const [isVisible, setIsVisible] = useState(true);
+  // const [image, setImage] = useState(null);
+  // const [dataLoadedImage, setDataLoadedImage] = useState(null);
+  // // const [isVisible, setIsVisible] = useState(true);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState('');
-  const [dataLoaded, setDataLoaded] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [data, setData] = useState('');
+  // const [dataLoaded, setDataLoaded] = useState(false);
 
-  const uploadImageHandler = async () => {
-    console.log('Sending Image to Server');
-    console.log(image);
-    try {
-      setIsLoading(true);
-      let data = new FormData();
-      data.append('file', {
-        uri: image.uri,
-        name: `photo.jpg`,
-        type: image.type,
-      });
-      // data.append('Content-Type','image/jpg')
-      const url = 'http://192.168.0.3:5000/segmentImage';
-      let res = await axios.post(url, data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(res);
-      setData(res.data.res);
-      setImage(null);
-      // const bckend_data = await axios.post(url, data, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // });
-      // console.log(bckend_data);
-      // setData(bckend_data.data.result);
-      setDataLoaded(true);
-      setIsLoading(false);
-      // console.log(bckend_data.data);
-    } catch (err) {
-      console.log(err);
-    }
-    setIsLoading(false);
-  };
+  // const uploadImageHandler = async () => {
+  //   console.log('Sending Image to Server');
+  //   console.log(image);
+  //   try {
+  //     setIsLoading(true);
+  //     let data = new FormData();
+  //     data.append('file', {
+  //       uri: image.uri,
+  //       name: `photo.jpg`,
+  //       type: image.type,
+  //     });
+  //     // data.append('Content-Type','image/jpg')
+  //     const url = 'http://192.168.0.3:5000/segmentImage';
+  //     let res = await axios.post(url, data, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //     console.log(res);
+  //     setData(res.data.res);
+  //     setImage(null);
+  //     // const bckend_data = await axios.post(url, data, {
+  //     //   headers: {
+  //     //     'Content-Type': 'multipart/form-data',
+  //     //   },
+  //     // });
+  //     // console.log(bckend_data);
+  //     // setData(bckend_data.data.result);
+  //     setDataLoaded(true);
+  //     setIsLoading(false);
+  //     // console.log(bckend_data.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   setIsLoading(false);
+  // };
 
   const verifyCameraPermission = async () => {
     if (cameraPermissionInfo.status === PermissionStatus.UNDETERMINED) {
@@ -101,7 +101,7 @@ export default function PickImage(props) {
       quality: 1,
     });
     if (!image.canceled) {
-      setImage(image.assets[0]);
+      props.onChange(image.assets[0]);
     }
   };
   const cameraPressHandler = async () => {
@@ -115,7 +115,7 @@ export default function PickImage(props) {
       quality: 1,
     });
     if (!image.canceled) {
-      setImage(image.assets[0]);
+      props.onChange(image.assets[0]);
     }
   };
 
@@ -124,8 +124,8 @@ export default function PickImage(props) {
   // if (image) {
   //   imagePreview = <Image source={{ uri: image }} style={styles.imageStyle} />;
   // }
-  let imagePath =
-    dataLoaded && !isLoading ? require(`../../assets/output/photo.jpg`) : '';
+  // let imagePath =
+  //   dataLoaded && !isLoading ? require(`../../assets/output/photo.jpg`) : '';
   return (
     <View style={styles.container}>
       <Pressable onPress={galleryPressHandler} style={styles.btn}>
@@ -134,7 +134,7 @@ export default function PickImage(props) {
       <Pressable onPress={cameraPressHandler} style={styles.btn}>
         <Text style={styles.btnText}>Use Camera</Text>
       </Pressable>
-      {image && (
+      {/* {image && (
         <Pressable onPress={uploadImageHandler} style={styles.btn}>
           <Text style={styles.btnText}>Upload Image</Text>
         </Pressable>
@@ -142,7 +142,7 @@ export default function PickImage(props) {
       {image && <Image source={{ uri: image.uri }} style={styles.imageStyle} />}
       {dataLoaded && !isLoading && (
         <Image source={imagePath} style={styles.imageStyle} />
-      )}
+      )} */}
     </View>
   );
 }
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
   container: {
-    marginTop: 100,
+    // marginTop: 100,
     margin: 10,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 10,
     width: wp(80),
     margin: 'auto',

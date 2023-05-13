@@ -7,8 +7,9 @@ import AgeInfo from './AgeInfo';
 import HeightInfo from './HeightInfo';
 import WeightInfo from './WeightInfo';
 import ActivityInfo from './ActivityInfo';
+import GoalInfo from './GoalInfo';
 const CollectInfo = (props) => {
-  const totalPages = 6;
+  const totalPages = 7;
   const [currentPage, setCurrentPage] = useState(0);
   let perc = currentPage / totalPages;
   perc = parseFloat(perc.toFixed(1));
@@ -19,6 +20,7 @@ const CollectInfo = (props) => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [activity, setActivity] = useState('');
+  const [goal, setGoal] = useState('');
   const changePageNoHandler = (pageNo) => {
     setCurrentPage(pageNo);
   };
@@ -78,7 +80,15 @@ const CollectInfo = (props) => {
         />
       );
       break;
-
+    case 6:
+      componentPage = (
+        <GoalInfo
+          pageNo={currentPage}
+          onSave={(goal) => setGoal(goal)}
+          onChangePage={changePageNoHandler}
+        />
+      );
+      break;
     default:
       const data = {
         name: name,
@@ -87,6 +97,7 @@ const CollectInfo = (props) => {
         height: height,
         weight: weight,
         activity: activity,
+        goal: goal,
       };
       props.onSave(data);
   }

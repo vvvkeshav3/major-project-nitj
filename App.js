@@ -20,6 +20,8 @@ const Stack = createNativeStackNavigator();
 import Welcome from './Components/Welcome';
 import MainPage from './Components/MainPage/MainPage';
 import TrackCal from './Components/MainPage/TrackCal';
+import ShowNutrition from './Components/MainPage/ShowNutrition';
+import GoalInfo from './Components/CollectInfo/GoalInfo';
 const App = () => {
   // Firebase config
   const { details } = firebaseDetails;
@@ -62,7 +64,7 @@ const App = () => {
   }, [isFirstTimeLogin]);
   useEffect(() => {
     if (showWelcome) setTheme('dark');
-    else setTheme('light');
+    else if(login) setTheme('light');
   }, [showWelcome]);
   return (
     <>
@@ -102,6 +104,11 @@ const App = () => {
                 name="TrackCal"
                 component={TrackCal}
                 options={{ title: 'Track Calories' }}
+              />
+              <Stack.Screen
+                name="NutritionInfo"
+                component={ShowNutrition}
+                option={{ title: 'Nutrition Info' }}
               />
             </Stack.Navigator>
           </NavigationContainer>

@@ -23,8 +23,15 @@ const HeightInfo = (props) => {
   const cmNumbers = [{ id: 'cm', label: '', min: 0, max: 300 }];
 
   const onNext = (page) => {
-    const value = isCentimeter?cm:feetIn;
-    props.onSave(value);
+    let val = 0;
+    if(isCentimeter){
+      val = cm[0].value;
+    }
+    else{
+      val = feetIn[0].value*30.48 + feetIn[1].value*2.54;
+      val = Math.round(val);
+    }
+    props.onSave(val);
     props.onChangePage(page);
   };
   const onBack = (page) => {

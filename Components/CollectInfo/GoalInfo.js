@@ -4,33 +4,20 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Footer } from './Footer';
 import { wp, hp } from '../Viewport';
 import NumberPlease from 'react-native-number-please';
+import { Slider, Icon } from '@rneui/base';
 
-const WeightInfo = (props) => {
-  const [isKg, setIsKg] = useState(true);
+const GoalInfo = (props) => {
+  const [isLose, setIsLose] = useState(true);
 
   const [valid, setValid] = useState(true);
-  const initialKgValues = [
-    { id: 'full', value: 80 },
-    { id: 'decimal', value: 0 },
-  ];
-  const initialLbValues = [{ id: 'lb', value: 160 }];
-  const [kg, setKg] = useState(initialKgValues);
-  const [lb, setLb] = useState(initialLbValues);
-  const kgNumbers = [
-    { id: 'full', label: '.', min: 30, max: 300 },
-    { id: 'decimal', label: '', min: 0, max: 9 },
-  ];
-  const lbNumbers = [{ id: 'lb', label: '', min: 66, max: 660 }];
+  const [value, setValue] = useState(0.25);
 
   const onNext = (page) => {
-    let value = 0;
-    if (isKg) {
-      value = kg[0].value + kg[1].value / 10.0;
-    } else {
-      value = lb[0].value * 0.453592;
+    let val = value;
+    if (isLose) {
+      val = -value;
     }
-    value = Math.round(value * 10) / 10;
-    props.onSave(value);
+    props.onSave(val);
     props.onChangePage(page);
   };
   const onBack = (page) => {
@@ -42,7 +29,8 @@ const WeightInfo = (props) => {
       style={{
         height: hp(100),
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignContent:'center'
       }}
     >
       <ScrollView
@@ -53,53 +41,59 @@ const WeightInfo = (props) => {
           flex: 1,
         }}
       >
-        <Text style={{ fontSize: 25, marginBottom: 10 }}>
-          What's your current weight?
+        <Text style={{ fontSize: 25, alignContent:'center'}}>
+          How fast do you want to
         </Text>
-        <Text style={{ textAlign: 'center' }}>
-          This will help us determine your goal, and monitor your progress over
-          time.
+        <Text style={{ fontSize: 25, marginBottom: 10, alignContent:'center'}}>
+        reach your goal? 
         </Text>
 
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
             paddingVertical: 100,
           }}
         >
-          {isKg ? (
-            <NumberPlease
-              digits={kgNumbers}
-              values={kg}
-              onChange={(values) => setKg(values)}
-              pickerStyle={styles.pickerStyle}
-              itemStyle={styles.itemStyle}
-            />
-          ) : (
-            <NumberPlease
-              digits={lbNumbers}
-              values={lb}
-              onChange={(values) => setLb(values)}
-              pickerStyle={styles.pickerStyle}
-              itemStyle={styles.itemStyle}
-            />
-          )}
+          <Text style={{textAlign:'center',fontSize : 50,}}>{value} kg</Text>
+          <Text style={{textAlign:'center',fontSize : 30}}>per week</Text>
+        </View>
+        <View>
+          <Slider
+            // animateTransitions
+            // animationType="timing"
+            maximumTrackTintColor="#ccc"
+            maximumValue={1}
+            minimumTrackTintColor="#222831"
+            minimumValue={0.25}
+            onValueChange={(value) => setValue(value)}
+            orientation="horizontal"
+            step={0.25}
+            style={{ width: wp(80) }}
+            thumbStyle={{ height: 20, width: 20 }}
+            thumbProps={{}}
+            thumbTintColor="#111"
+            thumbTouchSize={{ width: 40, height: 40 }}
+            trackStyle={{ height: 6, borderRadius: 20 }}
+            value={value}
+          />
         </View>
         <View>
           <Pressable
             style={styles.btnLayout}
             onPress={() => {
-              setIsKg((current) => !current);
+              setIsLose((current) => !current);
             }}
           >
-            <Text style={[styles.toggleOption, isKg ? styles.selectedBtn : '']}>
-              Kg
+            <Text
+              style={[styles.toggleOption, isLose ? styles.selectedBtn : '']}
+            >
+              Lose
             </Text>
             <Text
-              style={[styles.toggleOption, !isKg ? styles.selectedBtn : '']}
+              style={[styles.toggleOption, !isLose ? styles.selectedBtn : '']}
             >
-              Lb
+              Gain
             </Text>
           </Pressable>
         </View>
@@ -131,6 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     height: 30,
+    marginVertical : 50,
     borderRadius: 4,
     overflow: 'hidden',
   },
@@ -140,4 +135,4 @@ const styles = StyleSheet.create({
   itemStyle: {},
 });
 
-export default WeightInfo;
+export default GoalInfo;

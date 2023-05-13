@@ -12,12 +12,14 @@ const ActivityInfo = (props) => {
     {
       icon: <Icon name="running" size={40} color="#111" style={styles.icon} />,
       title: 'Little or No Activity',
+      value : 0,
       description:
         'Mostly sitting through the day (eg. Desk Job, Bank Teller )',
     },
     {
       icon: <Icon name="running" size={40} color="#111" style={styles.icon} />,
       title: 'Lightly Active',
+      value: 1,
       description:
         'Mostly standing through the day (eg. Sales Associate, Teacher )',
     },
@@ -31,6 +33,7 @@ const ActivityInfo = (props) => {
         />
       ),
       title: 'Moderately Active',
+      value:2,
       description:
         'Mostly walking or doing physical activities through the day (eg. Tour Guide, Waiter )',
     },
@@ -44,6 +47,7 @@ const ActivityInfo = (props) => {
         />
       ),
       title: 'Very Active',
+      value: 3,
       description:
         'Mostly doing heavy physical activities through the day (eg. Gym Instructor, Construction Worker )',
     },
@@ -54,7 +58,7 @@ const ActivityInfo = (props) => {
   };
 
   const onNext = (page) => {
-    props.onSave(activityOptions[option].title);
+    props.onSave(option);
     props.onChangePage(page);
   };
   const onBack = (page) => {
