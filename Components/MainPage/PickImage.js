@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: 'column',
     justifyContent: 'center',
-
+    backgroundColor: '#F4EEFF',
     alignItems: 'center',
   },
   btn: {
@@ -167,8 +167,12 @@ const styles = StyleSheet.create({
     padding: 10,
     width: wp(80),
     margin: 'auto',
+    backgroundColor:'#A6B1E1',
   },
   btnText: {
-    fontSize: 20,
+    fontSize:20,
+    fontWeight: '500',
+    color: '#424874',
+    paddingLeft: 5,
   },
 });

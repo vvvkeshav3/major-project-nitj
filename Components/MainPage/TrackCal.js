@@ -188,10 +188,9 @@ const styles = StyleSheet.create({
     width: wp(80),
   },
   container: {
-    margin: 10,
     flexDirection: 'column',
     justifyContent: 'center',
-
+    backgroundColor: '#F4EEFF',
     alignItems: 'center',
   },
   btn: {
@@ -204,7 +203,10 @@ const styles = StyleSheet.create({
     margin: 'auto',
   },
   btnText: {
-    fontSize: 20,
+    fontSize:15,
+    fontWeight: '500',
+    color: '#424874',
+    paddingLeft: 5,
   },
 });
 

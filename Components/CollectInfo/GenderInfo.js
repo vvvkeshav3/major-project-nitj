@@ -27,6 +27,7 @@ const GenderInfo = (props) => {
         height: hp(100),
         flexDirection: 'column',
         justifyContent: 'space-between',
+        backgroundColor: "#F4EEFF",
       }}
     >
       <ScrollView
@@ -37,10 +38,10 @@ const GenderInfo = (props) => {
           flex: 1,
         }}
       >
-        <Text style={{ fontSize: 25, marginBottom: 10 }}>
+        <Text style={styles.header}>
           What's your biological sex?
         </Text>
-        <Text style={{ textAlign: 'center' }}>
+        <Text style={styles.smallText}>
           We support all forms of gender expression. However, we need this to
           calculate your body metrics.
         </Text>
@@ -95,7 +96,7 @@ const GenderInfo = (props) => {
 const styles = StyleSheet.create({
   input: {
     marginTop: 40,
-    borderColor: 'black',
+    borderColor: '#424874',
     width: '80%',
     borderRadius: 10,
     textAlign: 'center',
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   },
   genderIcon: {
     margin: 10,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#F4EEFF',
     padding: 10,
     width: 60,
     height: 60,
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     paddingVertical: 10,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#A6B1E1',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
@@ -133,10 +134,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 20,
+    color: '#424874',
   },
   selected: {
     borderWidth: 2,
-    borderColor: '#257afd',
+    borderColor: '#424874',
+  },
+  smallText:{
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#424874',
+    paddingHorizontal: 10,
+    textAlign: 'center',
+  },
+  header: {
+    fontSize: 25, 
+    margin: 10,
+    borderBottomWidth: 1,
+    borderColor: '#424874',
+    paddingVertical: 5,
+    color: '#424874',
   },
 });
 
