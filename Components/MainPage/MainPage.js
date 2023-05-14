@@ -1,25 +1,49 @@
 import React, { useState } from 'react';
-
+import HorizontalDropdown from './HorizontalDropdown';
+import WaterCounter from './WaterCounter';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { MainFooter } from './MainFooter';
 import { wp, hp } from '../Viewport';
 import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import StepTracker from './StepsTracker';
 const MainPage = (props) => {
   const [selectedOption, setSelectedOption] = useState(0);
+  const [dropDown, setDropDown] = useState(false);
+  const handleButtonClick = () => {
+    setDropDown(!dropDown);
+  };
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString();
+  const options = [
+    { value: 'option1', label: '09/5' },
+    { value: 'option2', label: '10/5' },
+    { value: 'option3', label: '11/5' },
+    { value: 'option4', label: '12/5' },
+    { value: 'option5', label: '13/5' },
+    { value: 'option6', label: '14/5' },
+    { value: 'option7', label: '15/5' },
+  ];
 
   return (
     <View
       style={{
         height: hp(100),
+        backgroundColor: '#F4EEFF',
       }}
     >
       <View style={styles.header}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 16 }}>Today</Text>
+          <Pressable onPress={handleButtonClick}>
+          <View style={styles.row}>
+          <Text style={{ fontSize: 20, color: '#424874' }}>Today</Text>
           <Icon name="caret-down" size={20} style={styles.icon} />
+          </View>
+          </Pressable>
         </View>
       </View>
+      { dropDown &&   <HorizontalDropdown options={options} />
+      }
       <ScrollView
         // alwaysBounceVertical={false}
         contentContainerStyle={{
@@ -35,9 +59,8 @@ const MainPage = (props) => {
           <Text style={styles.cardHeading}>Calorie Tracker</Text>
           <Pressable onPress={()=>props.navigation.navigate('TrackCal')}>
             <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
+              <Icon name="camera" size={20} style={styles.icon} />
+              <Text style={styles.smallText}>Eat upto 2200 Cal</Text>
             </View>
           </Pressable>
         </View>
@@ -45,10 +68,9 @@ const MainPage = (props) => {
         <View style={styles.cardContainer}>
           <Text style={styles.cardHeading}>Nutrition</Text>
           <Pressable onPress={()=>props.navigation.navigate('Profile')}>
-            <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
+          <View style={styles.cardDesign}>
+              <Icon name="cutlery" size={20} style={styles.icon} />
+              <Text style={styles.smallText}>Eat upto 2200 Cal</Text>
             </View>
           </Pressable>
         </View>
@@ -57,43 +79,29 @@ const MainPage = (props) => {
           <Text style={styles.cardHeading}>Weight</Text>
           <Pressable>
             <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
+              <Icon name="circle" size={20} style={styles.icon} />
+              <Text style={styles.smallText}>Eat upto 2200 Cal</Text>
             </View>
           </Pressable>
         </View>
-        {/*  */}
+        {/* Steps */}
         <View style={styles.cardContainer}>
-            <Text style={styles.cardHeading}>Some Other Trackers</Text>
-            <Pressable>
-            <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-            </View>
-          </Pressable>
+          <Text style={styles.cardHeading}>Get your Steps</Text>
           <Pressable>
             <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
+              <Icon name="blind" size={20} style={styles.icon} />
+              <StepTracker />  
             </View>
           </Pressable>
+        </View>
+        {/* Water Tracker */}
+        <View style={styles.cardContainer}>
+          <Text style={styles.cardHeading}>Track your water intake</Text>
           <Pressable>
-            <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-            </View>
-          </Pressable>
-          <Pressable>
-            <View style={styles.cardDesign}>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-              <Text>Eat upto 2200 Cal</Text>
-              <Icon name="caret-down" size={20} style={styles.icon} />
-            </View>
-          </Pressable>
+          <View style={styles.cardDesign}>
+            <WaterCounter/>
+          </View>
+          </Pressable> 
         </View>
       </ScrollView>
 
@@ -106,28 +114,44 @@ const MainPage = (props) => {
 };
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    paddingHorizontal: 16, 
+  },
   header: {
+    marginTop: hp(3),
     borderBottomWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#424874',
     paddingVertical: 5,
+    backgroundColor: '#A6B1E1',
   },
   icon: {
+    color: '#424874',
     marginLeft: 5,
   },
   cardDesign:{
     borderWidth:2,
-    padding : 10,
-    backgroundColor:'white',
+    padding : 15,
+    backgroundColor:'#A6B1E1',
     borderRadius: 20,
     marginVertical: 10,
-
+    flexDirection: 'row', 
+    alignItems: 'center',  
   },
   cardContainer:{
     marginBottom : 30,
   },
   cardHeading:{
+    color: '#424874',
     fontWeight:'bold',
-    fontSize:15,
+    fontSize:17,
+  },
+  smallText:{
+    fontWeight: '500',
+    color: '#424874',
+    paddingLeft: 5,
   }
 });
 

@@ -23,14 +23,14 @@ const ShowItems = (props) => {
             <EntypoIcon
               name="squared-cross"
               size={20}
-              color="red"
+              color="#424874"
               style={styles.genderIcon}
             />
           </Pressable>
-          <Text style={styles.itemName}>{value.name}</Text>
+          <Text style={styles.itemText}>{value.name}</Text>
           <View style={styles.innerFields}>
             <View style={styles.qty}>
-              <Text style={{ fontSize: 20 }}>Qty : </Text>
+              <Text style={styles.itemText}>Qty : </Text>
               <TextInput
                 style={styles.textInput}
                 keyboardType="number-pad"
@@ -49,7 +49,7 @@ const ShowItems = (props) => {
             <Icon
               name="info"
               size={20}
-              color="blue"
+              color="#613F75"
               style={styles.genderIcon}
               onPress={() => {
                 navigation.navigate('NutritionInfo', {
@@ -68,24 +68,22 @@ const ShowItems = (props) => {
 const styles = StyleSheet.create({
   textInput: {
     flex: 0.5,
-    // marginTop: 40,
-    borderColor: 'black',
-    // marginLeft: 20,
+    borderColor: '#424874',
     borderRadius: 10,
     textAlign: 'center',
-    borderWidth: 0.5,
-    // width: 30,
-    // padding: 10,
+    borderWidth: 1,
     fontSize: 20,
-    // height: 50,
+    color: '#424874',
   },
   container: {
     marginVertical: 20,
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center',
+    backgroundColor: '#F4EEFF',
   },
   innerContainer: {
+    borderColor: '#424874',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
@@ -94,16 +92,17 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     width: wp(80),
+    backgroundColor: '#A6B1E1',
   },
   cancelBtn: {
     padding: 10,
   },
-  itemName: {
-    fontSize: 20,
+  itemText: {
     alignContent: 'center',
-    textAlign: 'left',
-    width: wp(20),
-    // marginHorizontal: 10,
+    fontSize:18,
+    fontWeight: '500',
+    color: '#424874',
+    paddingLeft: 5,
   },
   qty: {
     flexDirection: 'row',
@@ -111,7 +110,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   calories: {
-    fontSize: 20,
+    fontSize:18,
+    fontWeight: '500',
+    color: '#424874',
     flex: 1,
     marginLeft: 10,
     textAlign: 'center',
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
   innerFields: {
     // width : wp(20),
     flex: 1,
+    color: '#424874',
   },
 });
 

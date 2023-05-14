@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { wp, hp } from '../Viewport';
 import { View, Pressable, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { RNSVGSymbol } from 'react-native-svg';
 export const MainFooter = (props) => {
   let { selectedOption } = props;
   return (
@@ -10,7 +11,7 @@ export const MainFooter = (props) => {
       <Pressable style={styles.footerBtn} onPress={() => props.onClick(0)}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Icon
-            name="venus"
+            name="home"
             size={20}
             style={[
               styles.icon,
@@ -23,7 +24,7 @@ export const MainFooter = (props) => {
       <Pressable style={styles.footerBtn} onPress={() => props.onClick(1)}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Icon
-            name="venus"
+            name="fire"
             size={20}
             style={[
               styles.icon,
@@ -36,7 +37,7 @@ export const MainFooter = (props) => {
       <Pressable style={styles.footerBtn} onPress={() => props.onClick(2)}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Icon
-            name="venus"
+            name="ellipsis-h"
             size={20}
             style={[
               styles.icon,
@@ -59,9 +60,10 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 80,
-    marginBottom: hp(10),
+    marginBottom: hp(3),
     borderTopWidth: 1,
-    borderColor: 'gray',
+    backgroundColor: '#A6B1E1',
+    borderColor: '#424874',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -69,10 +71,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 5,
     textAlign: 'center',
+    color: '#424874',
   },
   icon: {
     // marginRight: 10,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#424874',
     padding: 10,
     width: 40,
     height: 40,
@@ -82,11 +85,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   selected: {
-    backgroundColor: 'black',
-    color: 'white',
+    backgroundColor: '#424874',
+    color: '#F4EEFF',
   },
   notSelected: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: '#F4EEFF',
+    color: '#424874',
   },
 });

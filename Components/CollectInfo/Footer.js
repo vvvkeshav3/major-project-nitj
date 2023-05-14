@@ -19,7 +19,7 @@ export const Footer = (props) => {
         disabled={!props.valid}
       >
         <Text
-          style={[styles.navBtn, { color: !props.valid ? 'black' : '#E74646' }]}
+          style={[styles.navBtn, { color: !props.valid ? '#DCD6F7' : '#424874' }]}
         >
           Next &gt;{' '}
         </Text>
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 100,
-    marginBottom: hp(8),
-    borderTopWidth: 1,
-    borderColor: 'gray',
+    marginBottom: hp(6),
+    borderTopWidth: 2,
+    borderColor: '#424874',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
