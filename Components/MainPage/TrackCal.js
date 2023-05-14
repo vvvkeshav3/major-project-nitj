@@ -99,7 +99,7 @@ const TrackCal = () => {
       // data.append('Content-Type','image/jpg')
       setImage(null);
 
-      const url = 'http://192.168.0.3:5000/segmentImage';
+      const url = 'http://192.168.113.64:5000/segmentImage';
       let res = await axios.post(url, data, {
         headers: {
           'Content-Type': 'multipart/form-data',

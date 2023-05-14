@@ -22,100 +22,55 @@ import MainPage from './Components/MainPage/MainPage';
 import TrackCal from './Components/MainPage/TrackCal';
 import ShowNutrition from './Components/MainPage/ShowNutrition';
 import GoalInfo from './Components/CollectInfo/GoalInfo';
+import getRequirements from './getRequirements';
+// import AddFoodItem from './Components/MainPage/NutritionSection';
+import NutritionSection from './Components/MainPage/NutritionSection';
+import Login from './Login';
+import AddFoodItem from './Components/MainPage/AddFoodItem';
+
 const App = () => {
-  // Firebase config
-  const { details } = firebaseDetails;
-  const firebaseConfig = {
-    apiKey: details.apiKey,
-    authDomain: details.authDomain,
-    projectId: details.projectId,
-    storageBucket: details.storageBucket,
-    messagingSenderId: details.messagingSenderId,
-    appId: details.appId,
-    measurementId: details.measurementId,
-  };
-  initializeApp(firebaseConfig);
-
-  const [login, setLogin] = useState(false);
-  const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(true);
-  const [showWelcome, setShowWelcome] = useState(false);
-  const [theme, setTheme] = useState('dark');
-  const [showMainPage, setShowMainPage] = useState(true);
-  const onLogin = () => {
-    setLogin(true);
-    setTheme('light');
-    setIsFirstTimeLogin(true);
-    setTheme('light');
-  };
-  const [data, setData] = useState();
-  const saveDataHandler = (data) => {
-    setData(data);
-    setIsFirstTimeLogin(false);
-  };
-
-  useEffect(() => {
-    if (!isFirstTimeLogin) {
-      setShowWelcome(true);
-      setTimeout(() => {
-        setShowWelcome(false);
-        setShowMainPage(true);
-      }, 2000);
-    }
-  }, [isFirstTimeLogin]);
-  useEffect(() => {
-    if (showWelcome) setTheme('dark');
-    else if(login) setTheme('light');
-  }, [showWelcome]);
   return (
-    <>
-      <StatusBar
-        backgroundColor={theme === 'light' ? '#eef0ed' : '#000'}
-        barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
-      />
-      <SafeAreaProvider>
-        <SafeAreaView
-          style={{
-            flex: 1,
-            backgroundColor: theme === 'light' ? '#eef0ed' : '#000',
-          }}
-        >
-          <View>
-            {/* {!login && <HomePage onLogin={onLogin} />}
-            {login && isFirstTimeLogin && (
-              <CollectInfo onSave={saveDataHandler} />
-            )}
-            {showWelcome && <Welcome name={data?.name} />} */}
-          </View>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: '#eef0ed',
-                },
-              }}
-            >
-              <Stack.Screen
-                name="MainPage"
-                component={MainPage}
-                options={{ headerShown: false, title: '' }}
-              />
-              <Stack.Screen name="Profile" component={GenderInfo} />
-              <Stack.Screen
-                name="TrackCal"
-                component={TrackCal}
-                options={{ title: 'Track Calories' }}
-              />
-              <Stack.Screen
-                name="NutritionInfo"
-                component={ShowNutrition}
-                option={{ title: 'Nutrition Info' }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-          {/* <MainPage /> */}
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#eef0ed',
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false, title: '' }}
+        />
+        <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{ headerShown: false, title: '', gestureEnabled: false }}
+        />
+        <Stack.Screen name="Profile" component={GenderInfo} />
+        <Stack.Screen
+          name="TrackCal"
+          component={TrackCal}
+          options={{ title: 'Track Calories' }}
+        />
+        <Stack.Screen
+          name="NutritionInfo"
+          component={ShowNutrition}
+          options={{ title: 'Nutrition Info' }}
+        />
+        <Stack.Screen
+          name="NutritionSection"
+          component={NutritionSection}
+          options={{ title: 'Nutrition' }}
+        />
+        <Stack.Screen
+          name="AddFoodItem"
+          component={AddFoodItem}
+          options={{ title: 'Add Food Item' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

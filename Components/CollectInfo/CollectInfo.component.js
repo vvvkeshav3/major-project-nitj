@@ -24,6 +24,19 @@ const CollectInfo = (props) => {
   const changePageNoHandler = (pageNo) => {
     setCurrentPage(pageNo);
   };
+  const saveInfo = (goal_) =>{
+    setGoal(goal_);
+    const data = {
+      name: name,
+      age: age,
+      gender: gender,
+      height: height,
+      weight: weight,
+      activity: activity,
+      goal: goal_,
+    };
+    props.onSave(data);
+  }
   let componentPage = '';
   switch (currentPage) {
     case 0:
@@ -84,22 +97,12 @@ const CollectInfo = (props) => {
       componentPage = (
         <GoalInfo
           pageNo={currentPage}
-          onSave={(goal) => setGoal(goal)}
+          onSave={(goal) => saveInfo(goal)}
           onChangePage={changePageNoHandler}
         />
       );
       break;
-    default:
-      const data = {
-        name: name,
-        age: age,
-        gender: gender,
-        height: height,
-        weight: weight,
-        activity: activity,
-        goal: goal,
-      };
-      props.onSave(data);
+
   }
 
   return (
