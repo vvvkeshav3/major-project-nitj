@@ -5,15 +5,10 @@ import { MainFooter } from './MainFooter';
 import { wp, hp } from '../Viewport';
 import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import WaterCounter from './WaterCounter';
+import HorizontalDropdown from './HorizontalDropdown';
 import NutritionCard from './NutritionCard';
-import GenderInfo from '../CollectInfo/GenderInfo';
-import TrackCal from './TrackCal';
-import ShowNutrition from './ShowNutrition';
-import NutritionSection from './NutritionSection';
-// const Stack = createNativeStackNavigator();
+
 
 const MainPage = (props) => {
   const { data } = props.route.params;
@@ -168,7 +163,7 @@ const MainPage = (props) => {
           />
 
           {/* Weight */}
-          <View style={styles.cardContainer}>
+          {/* <View style={styles.cardContainer}>
             <Text style={styles.cardHeading}>Weight</Text>
             <Pressable>
               <View style={styles.cardDesign}>
@@ -176,23 +171,24 @@ const MainPage = (props) => {
                 <Text style={styles.smallText}>Eat upto 2200 Cal</Text>
               </View>
             </Pressable>
-          </View>
+          </View> */}
           {/* Steps */}
           <View style={styles.cardContainer}>
-            <Text style={styles.cardHeading}>Get your Steps</Text>
-            <Pressable>
+            <Text style={styles.cardHeading}>Steps</Text>
+            <Pressable onPress={() => props.navigation.navigate('StepTracker')}>
               <View style={styles.cardDesign}>
                 <Icon name="blind" size={20} style={styles.icon} />
-                <StepsTracker />
+                <Text style={styles.smallText}>Check your steps</Text>
               </View>
             </Pressable>
           </View>
           {/* Water Tracker */}
           <View style={styles.cardContainer}>
-            <Text style={styles.cardHeading}>Track your water intake</Text>
-            <Pressable>
+            <Text style={styles.cardHeading}>Water intake</Text>
+            <Pressable onPress={() => props.navigation.navigate('WaterIntake')}>
               <View style={styles.cardDesign}>
-                <WaterCounter />
+                <Icon name="tint" size={20} style={styles.icon} />
+                <Text style={styles.smallText}>Track water intage</Text>
               </View>
             </Pressable>
           </View>
@@ -209,13 +205,12 @@ const MainPage = (props) => {
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    paddingHorizontal: 16, 
   },
   header: {
-    marginTop: hp(3),
     borderBottomWidth: 1,
     borderColor: '#424874',
     paddingVertical: 5,
@@ -225,25 +220,28 @@ const styles = StyleSheet.create({
     color: '#424874',
     marginLeft: 5,
   },
-  cardDesign: {
-    borderWidth: 2,
-    padding: 10,
-    backgroundColor: 'white',
+  cardDesign:{
+    borderWidth:2,
+    padding : 15,
+    backgroundColor:'#A6B1E1',
     borderRadius: 20,
     marginVertical: 10,
+    flexDirection: 'row', 
+    alignItems: 'center',  
   },
-  cardContainer: {
-    marginBottom: 30,
+  cardContainer:{
+    marginBottom : 30,
   },
-  cardHeading: {
-    fontWeight: 'bold',
-    fontSize: 15,
+  cardHeading:{
+    color: '#424874',
+    fontWeight:'bold',
+    fontSize:17,
   },
-  smallText: {
+  smallText:{
     fontWeight: '500',
     color: '#424874',
     paddingLeft: 5,
-  },
+  }
 });
 
 export default MainPage;

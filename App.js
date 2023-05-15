@@ -27,6 +27,8 @@ import getRequirements from './getRequirements';
 import NutritionSection from './Components/MainPage/NutritionSection';
 import Login from './Login';
 import AddFoodItem from './Components/MainPage/AddFoodItem';
+import StepsTracker from './Components/MainPage/StepsTracker';
+import WaterCounter from './Components/MainPage/WaterCounter';
 
 const App = () => {
   return (
@@ -68,6 +70,16 @@ const App = () => {
           name="AddFoodItem"
           component={AddFoodItem}
           options={{ title: 'Add Food Item' }}
+        />
+        <Stack.Screen 
+        name="StepTracker" 
+        component={StepsTracker} 
+        options={{ title: 'Check your steps' }}
+        />
+        <Stack.Screen 
+        name="WaterIntake" 
+        component={WaterCounter} 
+        options={{ title: 'Check your Water Intake' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

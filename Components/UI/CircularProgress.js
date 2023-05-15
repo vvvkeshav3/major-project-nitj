@@ -40,7 +40,7 @@ const CircularProgress = ({ percent }) => {
     <View style={styles.container}>
       <View style={[styles.firstProgressLayer, firstProgressLayerStyle]}></View>
       {renderThirdLayer(percent)}
-      <Icon name="silverware-fork-knife" size={30} style={styles.icon} />
+      <Icon name="silverware-fork-knife" size={25} style={styles.icon} />
     </View>
   );
 };
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderWidth: 5,
     borderRadius: 35,
-    borderColor: '#EEEEEE',
+    borderColor: '#F4EEFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     transform: [{ rotateZ: '-135deg' }],
   },
   icon: {
-    color: '#222831',
+    color: '#424874',
   },
 });
 

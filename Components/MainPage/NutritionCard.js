@@ -27,17 +27,17 @@ const NutritionCard = (props) => {
   if (currentFoodIntake.calories == 0) {
     // setShowMacro(false);
     text = (
-      <Text style={styles.text}>
+      <Text style={styles.smallText}>
         Eat upto {totalFoodIntake.calories} calories
       </Text>
     );
   } else {
     text = (
       <View style={styles.display}>
-        <Text style={{ fontSize: 18 }}>
+        <Text style={styles.smallText}>
           {currentFoodIntake.calories} of {totalFoodIntake.calories}
         </Text>
-        <Text style={{ fontSize: 10 }}>Cal Eaten</Text>
+        <Text style={styles.smallText}>Cal Eaten</Text>
       </View>
     );
   }
@@ -59,11 +59,9 @@ const NutritionCard = (props) => {
         }
       >
         <View style={styles.cardDesign}>
-          <CircularProgress percent={caloriePercentage} />
+        <Icon name="squared-plus" size={30} style={styles.icon} />
           {text}
-          {/* <Pressable> */}
-          <Icon name="squared-plus" size={30} style={styles.icon} />
-          {/* </Pressable> */}
+          <CircularProgress percent={caloriePercentage} />
         </View>
       </Pressable>
     </View>
@@ -72,39 +70,34 @@ const NutritionCard = (props) => {
 const styles = StyleSheet.create({
   header: {
     borderBottomWidth: 1,
-    borderColor: 'gray',
-    paddingVertical: 5,
+    borderColor: '#424874',
+    // paddingVertical: 5,
   },
   icon: {
-    marginHorizontal: 5,
-    color: '#222831',
+    color: '#424874',
+    marginLeft: 5,
   },
-  cardDesign: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 2,
-    padding: 10,
-    backgroundColor: 'white',
+  cardDesign:{
+    borderWidth:2,
+    padding : 15,
+    backgroundColor:'#A6B1E1',
     borderRadius: 20,
     marginVertical: 10,
-    paddingVertical: 20,
+    flexDirection: 'row', 
+    alignItems: 'center',  
   },
-  cardContainer: {
-    marginBottom: 30,
+  cardContainer:{
+    marginBottom : 30,
   },
-  cardHeading: {
-    fontWeight: 'bold',
-    fontSize: 15,
+  cardHeading:{
+    color: '#424874',
+    fontWeight:'bold',
+    fontSize:17,
   },
-  text: {
-    marginLeft: 10,
-    fontSize: 18,
-    // alignSelf:'center',
-    flex: 1,
-  },
-  display: {
-    marginLeft: 10,
-    flex: 0.95,
+  smallText:{
+    fontWeight: '500',
+    color: '#424874',
+    paddingLeft: 5,
   },
 });
 export default NutritionCard;

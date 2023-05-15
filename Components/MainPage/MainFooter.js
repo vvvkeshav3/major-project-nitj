@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 80,
-    marginBottom: hp(3),
+    marginBottom: hp(6),
     borderTopWidth: 1,
     backgroundColor: '#A6B1E1',
     borderColor: '#424874',
